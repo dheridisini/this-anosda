@@ -1,0 +1,584 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  position: relative; /* Tambahkan ini */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent; /* Buat transparan agar partikel terlihat */
+}
+
+/* Responsive buat HP */
+@media (max-width: 768px) {
+  #calender {
+    width: 60px;
+    height: 60px;
+    bottom: 5px;
+    left: 5px;
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.781);
+  max-width: 500px;
+  width: 800px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center; /* Lebih rapi */
+  gap: 1rem; /* Jarak antar elemen */
+  height: auto; /* Biarkan tinggi menyesuaikan kontennya */
+  min-height: 50vh; /* Kasih batas minimal biar tetap proporsional */
+  background: rgba(255, 255, 255, 0.226); /* Warna solid dengan opacity */
+  backdrop-filter: none(10px); /* Efek blur */
+
+}
+
+
+
+.container .btn {
+  position: relative;
+  width: 155px;
+  height: 50px;
+  margin: 20px;
+}
+.container .btn a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  color: #fff;
+  z-index: 1;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(15px);
+}
+.container .btn:hover a {
+  letter-spacing: 3px;
+}
+.container .btn a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(45deg) translateX(0);
+  transition: 0.5s;
+}
+.container .btn:hover a::before {
+  transform: skewX(45deg) translateX(200%);
+}
+.container .btn::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -5px;
+  width: 30px;
+  height: 10px;
+  background: #f00;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0s;
+}
+.container .btn:hover::before {
+  bottom: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+  transition-delay: 0.5s;
+}
+.container .btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -5px;
+  width: 30px;
+  height: 10px;
+  background: #f00;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0s;
+}
+.container .btn:hover::after {
+  top: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+  transition-delay: 0.5s;
+}
+
+.container .btn:nth-child(1)::before,
+.container .btn:nth-child(1)::after {
+  background: #ff1571;
+  box-shadow: 0 0 5px #ff1571, 0 0 15px #ff1571, 0 0 30px #ff1571,
+    0 0 60px #ff1571;
+}
+.container .btn:nth-child(2)::before,
+.container .btn:nth-child(2)::after {
+  background: #2bd2ff;
+  box-shadow: 0 0 5px #2bd2ff, 0 0 15px #2bd2ff, 0 0 30px #2bd2ff,
+    0 0 60px #2bd2ff;
+}
+.container .btn:nth-child(3)::before,
+.container .btn:nth-child(3)::after {
+  background: #1eff45;
+  box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45,
+    0 0 60px #1eff45;
+  }
+.container {
+    margin-top: 50px;
+}
+
+.btn {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    z-index: 3; /* Pastikan tombol tetap di atas efek warna */
+}
+
+.btn a {
+    background: purple;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+}
+.modal {
+  display: none; /* Sembunyikan modal saat pertama kali dibuka */
+  position: fixed; /* Posisi fixed agar modal menutupi seluruh layar */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Background semi-transparan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Modal di atas jam */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  
+
+}
+
+/* Modal Box */
+.modal-content {
+  background: white;
+  width: 80%; /* Lebar modal */
+  max-width: 700px; /* Batas maksimal modal */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-height: 80vh; /* Biar modal ga terlalu panjang */
+  overflow-y: auto; /* Supaya bisa discroll */
+  position: relative;
+  z-index: 11;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+}
+
+.modal-content h2 {
+  color: rgb(0, 0, 0); /* Ganti warna teks */
+  text-align: center; /* Biar teks ada di tengah */
+  width: 100%; /* Pastikan lebarnya penuh */
+  margin: 0 auto; /* Buat pastiin dia tetap di tengah */
+  position: relative;
+  top: -8px; /* Naikkan tulisan ke atas */
+  z-index: 11;
+}
+
+/* Tombol Close */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: red; /* Ubah warna teks X */
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.068); /* Warna latar belakang */
+  border-radius: 50px;
+  transition: 0.3s;
+  z-index: 12; /* Tambahkan ini */
+
+  
+}
+
+/* Style untuk tabel di dalam modal */
+.modal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style border dan padding */
+.modal table, 
+.modal th, 
+.modal td {
+  border: 1px solid #000000;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style untuk header tabel */
+.modal th {
+  background-color: #c323d8;
+  color: white;
+  font-weight: bold;
+}
+
+/* Overlay untuk menutup latar belakang */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Transparan hitam */
+  display: none;
+  z-index: 999;
+}
+
+/* Tambahan khusus untuk modal kalender besar */
+#big-calendar-modal .modal-content {
+  width: 90%; /* Lebih lebar untuk kalender besar */
+  max-width: 900px;
+  padding: 30px;
+}
+
+#big-calendar-container {
+  width: 100%;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#big-calendar {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+}
+
+
+/* Tombol Hari */
+.hari-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-direction: column; /* Mengubah tata letak jadi vertikal */
+  align-items: center; /* Membuat tombol tetap rata tengah */
+  gap: 10px; /* Memberikan jarak antar tombol */
+
+}
+.hari-buttons button {
+  width: 100%; /* Biar lebarnya maksimal */
+  max-width: 250px; /* Bisa diatur sesuai kebutuhan */
+  padding: 12px; /* Biar lebih nyaman diklik */
+  text-align: center; /* Pastikan teks tetap di tengah */
+}
+
+.hari-btn {
+  background-color: #c323d8;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.hari-btn:hover {
+  background-color: #512da8;
+}
+
+/* Sembunyikan tabel awalnya */
+.tabel-container {
+  display: none;
+}
+.tabel-container {
+  width: 100%; /* Biar lebarnya mengikuti parent */
+  max-width: 250px; /* Sesuaikan dengan tombol */
+}
+
+.tabel-container table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tabel-container th:nth-child(2), 
+.tabel-container td:nth-child(2) {
+  width: 60%; /* Membuat kolom "Mata Pelajaran" lebih lebar */
+}
+
+.tabel-jadwal th:nth-child(2), 
+.tabel-jadwal td:nth-child(2) {
+    width: 60%;
+}
+
+
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+table {
+  color: rgb(0, 0, 0); /* Ganti dengan warna yang kamu mau */
+}
+
+/* Background Particles */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #12002b; /* Sesuaikan warna */
+  z-index: -1; /* Letakkan di belakang semua elemen */
+  top: 0;
+  left: 0;
+}
+:root {
+	--main-bg-color: #fff;
+	--main-text-color: #888888;
+}
+
+[data-theme="dark"] {
+	--main-bg-color: #1e1f26;
+	--main-text-color: #ccc;
+}
+
+* {
+	box-sizing: border-box;
+	/* 		transition: all ease 0.2s; */
+}
+
+
+/* Ukuran lebih kecil di layar HP */
+@media (max-width: 768px) {
+  .analog-clock {
+    transform: scale(0.4); /* Ukuran lebih kecil di HP */
+    top: 5px; /* Lebih dekat ke atas */
+    right: 5px; /* Lebih dekat ke kanan */
+  }
+}
+.clock {
+	min-height: 100px;
+	min-width: 100px;
+  position: absolute; /* Supaya tetap di dalam .container */
+  bottom: 5px; /* Jarak dari bawah */
+  right: 5px; /* Jarak dari kanan */
+  transform: scale(0.7); /* Mengecilkan ukuran */
+  z-index: 5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--main-bg-color);
+	background-image: url("https://imvpn22.github.io/analog-clock/clock.png");
+	background-position: center center;
+	background-size: cover;
+	border-radius: 50%;
+	border: 4px solid var(--main-bg-color);
+	box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05),
+		inset 0 -15px 15px rgba(255, 255, 255, 0.05), 0 15px 15px rgba(0, 0, 0, 0.3),
+		inset 0 15px 15px rgba(0, 0, 0, 0.3);
+	transition: all ease 0.2s;
+}
+.clock:before {
+	content: "";
+	height: 0.20rem;
+	width: 0.20rem;
+	background-color: var(--main-text-color);
+	border: 2px solid var(--main-bg-color);
+	position: absolute;
+	border-radius: 50%;
+	z-index: 1000;
+	transition: all ease 0.2s;
+}
+.hour,
+.min,
+.sec {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	border-radius: 50%;
+}
+.hour {
+	height: 4em;
+	width: 4em;
+}
+.hour:before {
+	content: "";
+	position: absolute;
+	height: 50%;
+	width: 6px;
+	background-color: var(--main-text-color);
+	border-radius: 6px;
+}
+.min {
+	height: 5em;
+	width: 5em;
+}
+.min:before {
+	content: "";
+	height: 50%;
+	width: 4px;
+	background-color: var(--main-text-color);
+	border-radius: 4px;
+}
+.sec {
+	height: 5em;
+	width: 5em;
+}
+.sec:before {
+	content: "";
+	height: 60%;
+	width: 2px;
+	background-color: #f00;
+	border-radius: 2px;
+}
+.hidden {
+  display: none !important;
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(http://themes.googleusercontent.com/static/fonts/oswald/v7/qpy-UiLNKP-VfOdbcs6r6-vvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+
+body {
+	background: #a3a3a3;
+}
+
+#calender {
+	background-color: #ffffff;
+	background-image: linear-gradient(to bottom, #ffffff, #e3e3e3);
+	background-image: -webkit-linear-gradient(top, #ffffff, #e3e3e3);
+	background-image: -moz-linear-gradient(top, #ffffff, #e3e3e3);
+	background-image: -o-linear-gradient(top, #ffffff, #e3e3e3);
+	background-image: -ms-linear-gradient(top, #ffffff, #e3e3e3);
+	background-image: linear-gradient(top, #ffffff, #e3e3e3);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#e3e3e3');
+
+  position: absolute; /* Supaya bisa diatur di dalam container */
+  bottom: 5px; /* Biar di pojok kiri bawah */
+  left: 5px; /* Jarak dari kiri */
+  width: 110px; /* Ukuran biar pas sama jam */
+  height: 110px;
+  border-radius: 10%; /* Biar nggak ada efek putih di ujung */
+  z-index: 5;
+
+	-webkit-box-shadow: inset 0px 0px 2px -1px rgba(0,0,0,.8),0px 1px 1px rgba(20,20,20,.4);
+	box-shadow: inset 0px 0px 2px -1px rgba(0,0,0,.8),0px 1px 1px rgba(20,20,20,.4);
+
+  transform: scale(0.7); /* Mengecilkan agar pas sama jam */
+}
+
+#calenderTop {
+	background-color: #cc2427;
+	width: 100%;
+	height: 32%;
+	position: absolute;
+	z-index: 1;
+	display: table;
+  
+	border-top-left-radius: 10px; /* Mengurangi radius buat ngilangin putih-putih */
+	border-top-right-radius: 10px;
+	border-bottom: 2px dashed #940000;
+
+	-webkit-box-shadow: 0px 2px 0px #CC2427,0px 3px 0px #6B0C0C,inset 0px 1px 5px -1px rgba(0,0,0,.4);
+	box-shadow: 0px 2px 0px #CC2427,0px 3px 0px #6B0C0C,inset 0px 1px 5px -1px rgba(0,0,0,.4);
+}
+
+#calender > div#otherPages {
+	content: '';
+	width: inherit;
+	height: inherit;
+	background: inherit;
+	border-radius: inherit;
+	-webkit-box-shadow: inherit;
+	box-shadow: inherit;
+	position: absolute;
+}
+
+#calender > div#otherPages.two {
+	margin-top: 3px;
+	z-index: -1;
+}
+
+#calender > div#otherPages.three {
+	margin-top: 6px;
+	z-index: -2;
+}
+
+#calenderTop > span.month {
+	color: #F5F5F5;
+	font-family: 'Oswald', sans-serif;
+	letter-spacing: 4px;
+	font-size: 14px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#calender > span.day {
+	display: block;
+	width: 100%;
+	position: absolute;
+	top: 35%;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 600;
+	font-size: 40px;
+	letter-spacing: 4px;
+	text-align: center;    color: #000000d2; /* Ganti ini sesuai keinginan */
+
+}
+
+/* Media Query buat HP */
+@media (max-width: 768px) {
+  #calender {
+    transform: scale(0.5); /* Ukuran lebih kecil di HP */
+    bottom: 5px;
+    left: 5px;
+  }
+}
+
+/* TERAKHIR CODINGAN YANG WARAS */
+
